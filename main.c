@@ -3,6 +3,7 @@
 
 #include "typedef.h"
 #include "args.h"
+#include "list.h"
 
 int main(int argc, char *argv[])
 {
@@ -28,9 +29,9 @@ int main(int argc, char *argv[])
     if (options.verbose) {
         printf("***** Verbose mode ON *****\n");
         printf("Mode:\n");
-        if (options.list)    printf("  LIST\n");
+        if (options.list) printf("  LIST\n");
         if (options.extract) printf("  EXTRACT\n");
-        if (options.create)  printf("  CREATE\n");
+        if (options.create) printf("  CREATE\n");
 
         printf("Archive: %s\n", options.archive_file);
 
@@ -45,8 +46,8 @@ int main(int argc, char *argv[])
     }
 
     if (options.list) {
-        printf("List archive: %s\n", options.archive_file);
-        // list_archive(options.archive_file);   <-- later
+        // printf("List archive: %s\n", options.archive_file);
+        list_archive(options.archive_file);
     }
 
     if (options.extract) {
