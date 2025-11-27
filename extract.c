@@ -45,11 +45,28 @@ void extract_archive(const char *archive_file)
             break;
         }
 
+        // read file content from archive and write to created file
+        long remaining_bytes = size;
+        char buffer[512];
+
+        while (remaining_bytes > 0) {
+            ssize_t chunk = (remaining_bytes > 512 ? 512 : remaining_bytes); // 512 byte chunk
+
+            bytes = read(fd, buffer, chunk);
+            if (bytes <= 0) { perror("read file content"); break; }
+
+            write(out, buffer, bytes);
+            remaining_bytes -= bytes;
+        }
+        
         close(out);
 
-        // read file content from archive and write to created file
-
-        // skip padding
+        // skip padding : align to 512 bytes
+        long padding = size % 512;
+        if (padding != 0) {
+            long skip = 512 - padding;
+            lseek(fd, skip, SEEK_CUR);
+        }
     }
 
     close(fd);
