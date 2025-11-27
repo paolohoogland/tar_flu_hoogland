@@ -58,3 +58,4 @@ ctar
 
 # Tar archives
 *.tar
+test_tar/ 

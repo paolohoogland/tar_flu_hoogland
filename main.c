@@ -4,6 +4,7 @@
 #include "typedef.h"
 #include "args.h"
 #include "list.h"
+#include "extract.h"
 
 int main(int argc, char *argv[])
 {
@@ -51,8 +52,8 @@ int main(int argc, char *argv[])
     }
 
     if (options.extract) {
-        printf("Extract archive: %s\n", options.archive_file);
-        // extract_archive(options.archive_file); <-- later
+        // printf("Extract archive: %s\n", options.archive_file);
+        extract_archive(options.archive_file);
     }
     if (options.create) {
         printf("Create archive: %s\n", options.archive_file);

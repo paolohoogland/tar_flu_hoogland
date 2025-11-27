@@ -19,7 +19,7 @@ void list_archive(const char *archive)
     ssize_t bytes;
 
     while(1){
-        bytes = read(fd, &header, sizeof(posix_header_t));
+        bytes = read(fd, &header, sizeof(posix_header_t)); // 512 bytes
 
         if (bytes < 0) { perror("read"); break; }
         if (bytes == 0) break; // end of file
