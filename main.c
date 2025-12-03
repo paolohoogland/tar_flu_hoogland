@@ -5,6 +5,7 @@
 #include "args.h"
 #include "list.h"
 #include "extract.h"
+#include "create.h"
 
 int main(int argc, char *argv[])
 {
@@ -55,13 +56,9 @@ int main(int argc, char *argv[])
         // printf("Extract archive: %s\n", options.archive_file);
         extract_archive(options.archive_file);
     }
+    
     if (options.create) {
-        printf("Create archive: %s\n", options.archive_file);
-        printf("Files to include:\n");
-        for (int i = 0; i < options.file_count; i++) {
-            printf("  %s\n", options.files[i]);
-        }
-        // create_archive(options.archive_file, options.files, options.file_count); <-- later
+        create_archive(options.archive_file, options.files, options.file_count);
     }
 
     return 0;
