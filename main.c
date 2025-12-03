@@ -1,3 +1,12 @@
+/**
+ * @file main.c
+ * @brief Main entry point for the ctar application.
+ *
+ * This module handles the main logic for the ctar application.
+ * It parses command-line arguments and invokes the appropriate
+ * functions for listing, extracting, or creating tar archives.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -7,6 +16,13 @@
 #include "extract.h"
 #include "create.h"
 
+/**
+ * @brief Main entry point for the ctar application.
+ * 
+ * @param argc Argument count.
+ * @param argv Argument vector.
+ * @return Exit status code.
+ */
 int main(int argc, char *argv[])
 {
     options_t options = {0};

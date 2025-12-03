@@ -1,6 +1,20 @@
+/**
+ * @file typedef.h
+ * @brief Type definitions for the ctar application.
+ * 
+ * This module defines the data structures being used to represent
+ * command-line options and tar file headers.
+ */
+
 #ifndef TYPEDEF_H
 #define TYPEDEF_H
 
+/**
+ * @brief Structure to hold command-line options.
+ * 
+ * This structure captures the flags and parameters
+ * specified by the user when invoking the ctar application.
+ */
 typedef struct {
     int list;
     int extract;
@@ -15,6 +29,15 @@ typedef struct {
     int file_count; // number of files
 } options_t;
  
+/**
+ * @brief POSIX tar file header structure.
+ * 
+ * This structure represents the header block of a tar file,
+ * containing metadata about each file stored in the archive.
+ * The structure is defined according to the POSIX 1003.1-1988
+ * standard, also known as the USTAR format.
+ * @see https://www.gnu.org/software/tar/manual/html_node/Standard.html
+ */
 typedef struct { // header block for tar files, contains metadata about each file
     char name[100]; // file name
     char mode[8];

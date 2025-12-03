@@ -1,3 +1,10 @@
+/**
+ * @file create.c
+ * @brief Implementation of archive creation for the ctar application.
+ *
+ * This module allows to create tar archives from specified files.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -9,6 +16,13 @@
 #include "typedef.h"
 #include "create.h"
 
+ /**
+  * @brief Write the POSIX header for a file into the archive.
+  *
+  * @param fd File descriptor of the archive.
+  * @param filename Name of the file to add.
+  * @param filesize Size of the file to add.
+  */
 static void write_header(int fd, const char *filename, long filesize) {
     posix_header_t header;
     memset(&header, 0, sizeof(posix_header_t)); // initialize header to zero
@@ -36,6 +50,13 @@ static void write_header(int fd, const char *filename, long filesize) {
     write(fd, &header, sizeof(posix_header_t));
 }
 
+ /**
+  * @brief Create a tar archive from specified files.
+  *
+  * @param archive_file Name of the archive file to create.
+  * @param files Array of file names to include in the archive.
+  * @param file_count Number of files to include.
+  */
 void create_archive(const char *archive_file, char **files, int file_count) {
     int archive_fd = open(archive_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
     if (archive_fd < 0) {

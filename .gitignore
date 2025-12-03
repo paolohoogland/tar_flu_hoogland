@@ -59,3 +59,9 @@ ctar
 # Tar archives
 *.tar
 test_tar/ 
+
+# vscode
+.vscode/
+
+# doxygen output
+html/

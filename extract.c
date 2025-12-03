@@ -1,3 +1,11 @@
+/**
+ * @file extract.c
+ * @brief Extract files from a tar archive.
+ *
+ * This module provides functionality to extract files and directories 
+ * from a tar archive based on the POSIX USTAR format.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -10,6 +18,11 @@
 #include "typedef.h"
 #include "extract.h"
 
+/**
+ * @brief Extract files from a tar archive.
+ *
+ * @param archive_file Path to the tar archive file.
+ */
 void extract_archive(const char *archive_file)
 {
     int fd = open(archive_file, O_RDONLY);

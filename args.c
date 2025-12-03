@@ -1,8 +1,22 @@
+/**
+ * @file args.c
+ * @brief Argument parsing for the ctar application.
+ *
+ * This module handles the parsing of command-line arguments using getopt_long.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <getopt.h>
 #include "args.h"
 
+/**
+ * @brief Print help message.
+ * 
+ * This function displays the usage information for the ctar application. 
+ * The options include listing, extracting, and creating tar archives,
+ * as well as additional flags for compressing, verbose, and help.
+ */
 static void print_help() {
     printf("Usage: ctar [OPTIONS]\n");
     printf("  -l, --list      ARCHIVE_FILE\n");
@@ -14,6 +28,14 @@ static void print_help() {
     printf("  -h, --help\n");
 }
 
+/**
+  * @brief Parse command-line arguments.
+  *
+  * @param argc Number of arguments.
+  * @param argv Array of argument strings.
+  * @param options Structure where parsed options will be stored.
+  * @return 0 on success, -1 on invalid arguments.
+  */
 int parse_arguments(int argc, char *argv[], options_t *options){
     optind = 1; // reset getopt's external index -> otherwise it misbehaves if called multiple times
 

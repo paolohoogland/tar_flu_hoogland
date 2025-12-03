@@ -1,3 +1,11 @@
+/**
+ * @file list.c
+ * @brief List contents of a tar archive.
+ *
+ * This module provides functionality to list the contents of a tar archive
+ * by reading its headers and displaying file names and sizes.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -7,6 +15,14 @@
 #include "typedef.h"
 #include "list.h"
 
+/**
+ * @brief List contents of a tar archive.
+ *
+ * This function reads the tar archive specified by 'archive' and prints
+ * the names and sizes of the files contained within it.
+ *
+ * @param archive Path to the tar archive file.
+ */
 void list_archive(const char *archive)
 {
     int fd = open(archive, O_RDONLY); // open the .tar file
