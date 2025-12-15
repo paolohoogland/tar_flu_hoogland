@@ -56,12 +56,19 @@ static void write_header(int fd, const char *filename, long filesize) {
   * @param archive_file Name of the archive file to create.
   * @param files Array of file names to include in the archive.
   * @param file_count Number of files to include.
+  * 
+  * @return 0 on success, error code on failure.
   */
-void create_archive(const char *archive_file, char **files, int file_count) {
+int create_archive(const char *archive_file, char **files, int file_count) {
+    if (access(archive_file, F_OK) == 0) {
+        fprintf(stderr, "Error: File '%s' already exists.\n", archive_file);
+        return EEXIST;
+    }
+
     int archive_fd = open(archive_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
     if (archive_fd < 0) {
         perror("Error opening archive file");
-        return;
+        return ENOENT;
     }
 
     for(int i = 0; i < file_count; i++){
@@ -69,14 +76,16 @@ void create_archive(const char *archive_file, char **files, int file_count) {
         int file_fd = open(filename, O_RDONLY);
         if (file_fd < 0) {
             perror("Error opening input file");
-            continue; // skip this file and continue with the next
+            close(archive_fd);
+            return ENOENT;
         }
 
         struct stat st;
         if (fstat(file_fd, &st) < 0) {
             perror("Error getting file size");
             close(file_fd);
-            continue; // skip this file and continue with the next
+            close(archive_fd);
+            return EIO;
         }
 
         write_header(archive_fd, filename, st.st_size);
@@ -103,4 +112,6 @@ void create_archive(const char *archive_file, char **files, int file_count) {
     write(archive_fd, end_block, sizeof(end_block));
     write(archive_fd, end_block, sizeof(end_block));
     close(archive_fd);
+
+    return 0;
 }

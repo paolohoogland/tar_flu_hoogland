@@ -9,11 +9,15 @@
 #ifndef EXTRACT_H
 #define EXTRACT_H
 
+#include <errno.h>
+
 /**
  * @brief Extract files from a tar archive.
  *
  * @param archive_file Path to the tar archive file.
+ * 
+ * @return 0 on success, error code on failure.
  */
-void extract_archive(const char *archive_file);
+int extract_archive(const char *archive_file);
 
 #endif

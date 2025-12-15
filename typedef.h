@@ -9,6 +9,8 @@
 #ifndef TYPEDEF_H
 #define TYPEDEF_H
 
+#include <errno.h>
+
 /**
  * @brief Structure to hold command-line options.
  * 

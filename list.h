@@ -9,10 +9,14 @@
 #ifndef LIST_H
 #define LIST_H
 
+#include <errno.h>
+
 /**
  * @brief List the contents of a tar archive.
  * @param archive The path to the tar archive file.
+ * 
+ * @return 0 on success, error code on failure.
  */
-void list_archive(const char *archive);
+int list_archive(const char *archive);
 
 #endif

@@ -8,6 +8,7 @@
 #define ARGS_H
 
 #include "typedef.h" // contains options_t def
+#include <errno.h>
 
 /**
  * @brief Parse command-line arguments.

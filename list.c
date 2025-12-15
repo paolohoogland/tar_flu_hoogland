@@ -22,13 +22,15 @@
  * the names and sizes of the files contained within it.
  *
  * @param archive Path to the tar archive file.
+ * 
+ * @return 0 on success, error code on failure.
  */
-void list_archive(const char *archive)
+int list_archive(const char *archive)
 {
     int fd = open(archive, O_RDONLY); // open the .tar file
     if (fd < 0) {
-        perror("open");
-        return;
+        perror("open archive");
+        return ENOENT;
     }
 
     posix_header_t header; 
@@ -39,6 +41,11 @@ void list_archive(const char *archive)
 
         if (bytes < 0) { perror("read"); break; }
         if (bytes == 0) break; // end of file
+        if (bytes < sizeof(posix_header_t)) {
+            fprintf(stderr, "Error: corrupted tar archive\n");
+            close(fd);
+            return EINVAL;
+        }
         if (header.name[0] == '\0') break;  // two consecutive zero blocks indicate the end of the archive
 
         // convert to octal 
@@ -50,8 +57,14 @@ void list_archive(const char *archive)
         long padding = 512 - (size % 512);
         if (padding == 512) padding = 0;
 
-        lseek(fd, skip + padding, SEEK_CUR); // skip file content and padding
+        if(lseek(fd, skip + padding, SEEK_CUR) < 0) { // skip file content and padding
+            perror("lseek");
+            close(fd);
+            return EIO;
+        }
     }
 
     close(fd);
+
+    return 0;
 }
