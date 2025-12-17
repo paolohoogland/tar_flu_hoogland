@@ -10,6 +10,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <string.h>
+#include <unistd.h>
 
 #include "typedef.h"
 #include "args.h"
@@ -68,6 +70,14 @@ int main(int argc, char *argv[])
 
     /* END OF ERROR CATCHING */
 
+    if (options.directory && (options.create || options.extract))
+    {
+        if (chdir(options.directory) != 0) {
+            perror("chdir");
+            return errno;
+        }
+    }
+
     if (options.verbose) {
         printf("***** Verbose mode ON *****\n");
         printf("Mode:\n");
@@ -76,6 +86,12 @@ int main(int argc, char *argv[])
         if (options.create) printf("  CREATE\n");
 
         printf("Archive: %s\n", options.archive_file);
+
+        if (options.directory) {
+            printf("Directory: %s\n", options.directory);
+        } else {
+            printf("Directory: (current)\n");
+        }
 
         if (options.create) {
             printf("Files to include (%d):\n", options.file_count);

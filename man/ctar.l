@@ -29,6 +29,10 @@ into the current working directory.
 Create a tar archive named \fIARCHIVE\fR containing the specified files.
 
 .TP
+.BR \-d ", " \-\-directory " " \fIDIR\fR
+Change to directory \fIDIR\fR before performing any operations.
+
+.TP
 .BR \-v ", " \-\-verbose
 Enable verbose mode. Displays detailed information about the
 operations being performed.
@@ -73,6 +77,18 @@ ctar -e archive.tar
 Create an archive:
 .EX
 ctar -c archive.tar file1.txt file2.txt dir/
+.EE
+
+.TP 
+Create an archive in a specific directory:
+.EX
+./ctar -c archive.tar -d dir/ file1.txt
+.EE
+
+.TP
+Create an archive in a specific directory with verbose output:
+.EX
+ctar -c archive.tar file1.txt file2.txt -d /path/to/dir -v
 .EE
 
 .SH EXIT STATUS
